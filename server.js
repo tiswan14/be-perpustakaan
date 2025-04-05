@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/mongodb.js'
+import authRouter from './routes/authRouter.js'
 
 dotenv.config()
 
@@ -18,6 +19,8 @@ const startServer = async () => {
         process.exit(1)
     }
 }
+
+app.use('/api/auth', authRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello World ')
