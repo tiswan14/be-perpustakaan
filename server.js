@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import connectDB from './config/mongodb.js'
 import authRouter from './routes/authRouter.js'
+import authMiddleware from './middleware/authMiddleware.js'
 
 dotenv.config()
 
@@ -27,5 +28,6 @@ const startServer = async () => {
 }
 
 app.use('/api/auth', authRouter)
+app.use('/api/category', authMiddleware, categoryRouter)
 
 startServer()
