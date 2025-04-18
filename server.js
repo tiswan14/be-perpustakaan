@@ -6,6 +6,10 @@ import authRouter from './routes/authRouter.js'
 dotenv.config()
 
 const app = express()
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 const port = process.env.PORT || 3000
 
 const startServer = async () => {
@@ -21,9 +25,5 @@ const startServer = async () => {
 }
 
 app.use('/api/auth', authRouter)
-
-app.get('/', (req, res) => {
-    res.send('Hello World ')
-})
 
 startServer()
