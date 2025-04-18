@@ -1,4 +1,5 @@
 import express from 'express'
+import authMiddleware from '../middleware/authMiddleware.js'
 
 import {
     registerUser,
@@ -12,6 +13,6 @@ const authRouter = express.Router()
 authRouter.post('/register', registerUser)
 authRouter.post('/login', loginUser)
 authRouter.post('/logout', logoutUser)
-authRouter.get('/user', getUser)
+authRouter.get('/profile', authMiddleware, getUser)
 
 export default authRouter
