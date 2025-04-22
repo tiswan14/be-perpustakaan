@@ -8,7 +8,9 @@ const categorySchema = new mongoose.Schema(
             unique: [true, 'Kategori sudah ada'],
         },
     },
-    { timestamps: true }
+    {
+        timestamps: true,
+    }
 )
 
 const Category = mongoose.model('Category', categorySchema)

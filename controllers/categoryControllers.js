@@ -1,22 +1,48 @@
 import Category from '../models/categoryModel.js'
+import moment from 'moment-timezone'
 
 export const createCategory = async (req, res) => {
-    const newCategori = await Category.create(req.body)
+    try {
+        const newCategory = await Category.create(req.body)
 
-    return res.status(201).json({
-        success: true,
-        message: 'Kategori berhasil ditambahkan!.',
-        data: newCategori,
-    })
+        const categoryWithIndonesiaTime = {
+            ...newCategory.toObject(),
+            createdAt: moment(newCategory.createdAt)
+                .tz('Asia/Jakarta')
+                .format(),
+            updatedAt: moment(newCategory.updatedAt)
+                .tz('Asia/Jakarta')
+                .format(),
+        }
+
+        return res.status(201).json({
+            success: true,
+            message: 'Kategori berhasil ditambahkan!',
+            data: categoryWithIndonesiaTime,
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
 }
 
 export const getAllCategories = async (req, res) => {
-    const categories = await Category.find()
-    res.status(200).json({
-        success: true,
-        message: 'Berhasil mendapatkan semua kategori!.',
-        data: categories,
-    })
+    try {
+        const categories = await Category.find()
+
+        res.status(200).json({
+            success: true,
+            message: 'Berhasil mendapatkan semua kategori!',
+            data: categories,
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
 }
 
 export const getCategoryById = (req, res) => {
