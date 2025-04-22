@@ -129,9 +129,9 @@ export const updateCategory = async (req, res) => {
 }
 
 export const deleteCategory = async (req, res) => {
-    try {
-        const { id } = req.params
+    const { id } = req.params
 
+    try {
         const deletedCategory = await Category.findByIdAndDelete(id)
 
         if (!deletedCategory) {
@@ -146,9 +146,10 @@ export const deleteCategory = async (req, res) => {
             message: 'Kategori berhasil dihapus!',
         })
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
-            message: error.message,
+            message:
+                'Terjadi kesalahan saat menghapus kategori: ' + error.message,
         })
     }
 }
