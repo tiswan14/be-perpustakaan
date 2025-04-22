@@ -8,7 +8,7 @@ export const registerUser = async (req, res) => {
     if (!nama || !email || !nim || !password) {
         return res.status(400).json({
             success: false,
-            message: 'Semua input harus di isi!',
+            message: 'Semua input harus diisi!',
         })
     }
 
@@ -23,9 +23,8 @@ export const registerUser = async (req, res) => {
 
         const totalUsers = await User.countDocuments()
 
-        let role = 'anggota'
-        if (totalUsers === 0) role = 'admin'
-        else if (totalUsers === 1) role = 'petugas'
+        let role = 'user'
+        if (totalUsers < 3) role = 'admin'
 
         const hashedPassword = await bcrypt.hash(password, 10)
 
