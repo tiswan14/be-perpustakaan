@@ -1,5 +1,13 @@
-export const createCategory = (req, res) => {
-    res.send('Create category')
+import Category from '../models/categoryModel.js'
+
+export const createCategory = async (req, res) => {
+    const newCategori = await Category.create(req.body)
+
+    return res.status(201).json({
+        success: true,
+        message: 'Kategori berhasil ditambahkan!.',
+        data: newCategori,
+    })
 }
 
 export const getAllCategories = (req, res) => {
