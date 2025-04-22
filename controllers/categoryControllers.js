@@ -10,8 +10,13 @@ export const createCategory = async (req, res) => {
     })
 }
 
-export const getAllCategories = (req, res) => {
-    res.send('Get all categories')
+export const getAllCategories = async (req, res) => {
+    const categories = await Category.find()
+    res.status(200).json({
+        success: true,
+        message: 'Berhasil mendapatkan semua kategori!.',
+        data: categories,
+    })
 }
 
 export const getCategoryById = (req, res) => {
