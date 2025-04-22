@@ -128,7 +128,27 @@ export const updateCategory = async (req, res) => {
     }
 }
 
-export const deleteCategory = (req, res) => {
-    const { id } = req.params
-    res.send(`Delete category with ID ${id}`)
+export const deleteCategory = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const deletedCategory = await Category.findByIdAndDelete(id)
+
+        if (!deletedCategory) {
+            return res.status(404).json({
+                success: false,
+                message: 'Kategori tidak ditemukan!',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Kategori berhasil dihapus!',
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
 }
