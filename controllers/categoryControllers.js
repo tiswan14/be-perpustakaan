@@ -90,9 +90,42 @@ export const getCategoryById = async (req, res) => {
     }
 }
 
-export const updateCategory = (req, res) => {
-    const { id } = req.params
-    res.send(`Update category with ID ${id}`)
+export const updateCategory = async (req, res) => {
+    try {
+        const { id } = req.params
+        const updatedData = req.body
+
+        if (!updatedData || Object.keys(updatedData).length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Tidak ada data yang diperbarui!',
+            })
+        }
+
+        const updatedCategory = await Category.findByIdAndUpdate(
+            id,
+            updatedData,
+            { new: true }
+        )
+
+        if (!updatedCategory) {
+            return res.status(404).json({
+                success: false,
+                message: 'Kategori tidak ditemukan!',
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Kategori berhasil diperbarui!',
+            data: updatedCategory,
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
 }
 
 export const deleteCategory = (req, res) => {
