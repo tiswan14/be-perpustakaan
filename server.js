@@ -5,7 +5,8 @@ import connectDB from './config/mongodb.js'
 import authMiddleware from './middleware/authMiddleware.js'
 
 import authRouter from './routes/authRouter.js'
-import categoryRouter from './routes/categoryRoutes.js'
+import categoryRouter from './routes/categoryRouter.js'
+import penerbitRouter from './routes/penerbitRouter.js'
 
 dotenv.config()
 
@@ -31,5 +32,6 @@ const startServer = async () => {
 
 app.use('/api/auth', authRouter)
 app.use('/api/category', authMiddleware, categoryRouter)
+app.use('/api/penerbit', authMiddleware, penerbitRouter)
 
 startServer()
