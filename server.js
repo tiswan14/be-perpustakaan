@@ -2,8 +2,10 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import connectDB from './config/mongodb.js'
-import authRouter from './routes/authRouter.js'
 import authMiddleware from './middleware/authMiddleware.js'
+
+import authRouter from './routes/authRouter.js'
+import categoryRouter from './routes/categoryRoutes.js'
 
 dotenv.config()
 

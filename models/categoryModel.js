@@ -4,8 +4,8 @@ const categorySchema = new mongoose.Schema(
     {
         nama_kategori: {
             type: String,
-            required: true,
-            unique: true,
+            required: [true, 'Nama kategori harus diisi'],
+            unique: [true, 'Kategori sudah ada'],
         },
     },
     { timestamps: true }
